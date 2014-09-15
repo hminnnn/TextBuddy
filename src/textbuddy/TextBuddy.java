@@ -208,7 +208,7 @@ public class TextBuddy {
 	}
 
 	public static String search() {
-		
+		searchedText = new ArrayList<String>();
 		if (textFile.isEmpty()) {
 			return String.format(MESSAGE_FILE_EMPTY_DISPLAY, fileName);
 		} else {
@@ -229,7 +229,7 @@ public class TextBuddy {
 					}
 				}
 					if (isPresent) {
-						//searched();
+						searched();
 						int num = i+1;
 						System.out.println(num +". " + textFile.get(i));
 						searchedText.add(textFile.get(i));
@@ -240,9 +240,8 @@ public class TextBuddy {
 		return restOfText + " is present in the lines above:" ;
 	}
 	
-	public static String searched() {
-		System.out.println(searchedText);
-		return searchedText.toString();
+	public static ArrayList<String> searched() {
+		return searchedText;
 	}
 
 
