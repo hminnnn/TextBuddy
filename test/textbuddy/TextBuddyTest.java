@@ -41,8 +41,8 @@ public class TextBuddyTest {
 		TextBuddy.executeCommand("add huimin is here!");
 		TextBuddy.executeCommand("add abcdefg");
 		TextBuddy.executeCommand("add qwerty");
+		TextBuddy.executeCommand("search huimin");
 		assertEquals("[huimin is here!]", TextBuddy.search());
-		
 		
 	}
 

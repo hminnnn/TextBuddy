@@ -207,9 +207,36 @@ public class TextBuddy {
 	}
 
 	public static String search() {
+		boolean isPresent = false;
+
+		if (textFile.isEmpty()) {
+			return String.format(MESSAGE_FILE_EMPTY_DISPLAY, fileName);
+		} else {
+			System.out.println(restOfText + " is present in the lines:");
+			String[] checkWords = restOfText.split(" ");
+			String[] word;
+			for (int i = 0; i < textFile.size(); i++) {
+				word = textFile.get(i).split(" ");
+				for (int j = 0; j < checkWords.length; j++ ) {
+					for (int k = 0; k < word.length; k++ ) {
+						if (word[k].equalsIgnoreCase(checkWords[j])) {
+							isPresent = true;
+						} else {
+							isPresent = false;
+						}
+					}
+					if (isPresent) {
+						System.out.println(i+". " + textFile.get(i));
+					}
+				}
+			}
+		}
+		return "---";
 
 	}
-	
+
+
+
 	/**
 	 * This operation saves the file. If file already exists, it will be overwritten. 
 	 */
