@@ -43,7 +43,6 @@ public class TextBuddyTest {
 		TextBuddy.executeCommand("add qwerty");
 		assertEquals("[huimin is here!]", TextBuddy.search());
 		
-		
 	}
 
 }

@@ -207,6 +207,7 @@ public class TextBuddy {
 	}
 
 	public static String search() {
+		return fileName;
 
 	}
 	
