@@ -106,6 +106,8 @@ public class TextBuddy {
 		String[] textArr = userInput.split(" ", 2);
 		if (textArr.length > 1 ) {
 			restOfText = textArr[1];
+		} else {
+			restOfText = "";
 		}
 		return textArr[0];
 	}
@@ -168,6 +170,9 @@ public class TextBuddy {
 	}
 
 	public static String add() {
+		if (restOfText.isEmpty()) {
+			return String.format(MESSAGE_INVALID_COMMAND);
+		}
 		textFile.add(restOfText);	
 		isAdded(restOfText);
 		return String.format(MESSAGE_FILE_ADDED, fileName, restOfText);
