@@ -22,12 +22,16 @@ public class TextBuddyTest {
 		assertFalse("nothing was added",TextBuddy.isAdded("add"));
 		
 	}
-	
-	@Test
-	public void testDisplay() {
-		// display
-		TextBuddy.executeCommand("add this is line one");
-		assertEquals("display 1 line.", "1. this is line one", TextBuddy.executeCommand("display"));
+
+	@Test 
+	public void testIsSorted() {
+		
+		TextBuddy.executeCommand("add zzz");
+		TextBuddy.executeCommand("add bbb");
+		TextBuddy.executeCommand("add sss");
+		TextBuddy.sort();
+		assertEquals("[bbb, sss, zzz]", TextBuddy.isSorted());
+		
 	}
 
 }

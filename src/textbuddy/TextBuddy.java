@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -25,6 +26,7 @@ public class TextBuddy {
 	private static final String MESSAGE_FILE_ADDED = "added to %1$s: \"%2$s\"";
 	private static final String MESSAGE_FILE_CLEARED = "all content deleted from %1$s";
 	private static final String MESSAGE_FILE_EMPTY_DISPLAY = "%1$s is empty";
+	private static final String MESSAGE_FILE_SORTED = "%1$s is sorted";
 	
 	enum COMMAND_TYPE {
 		ADD, DELETE, CLEAR, DISPLAY, EXIT, INVALID, SORT, SEARCH
@@ -88,6 +90,9 @@ public class TextBuddy {
 	
 			case INVALID :
 				return String.format(MESSAGE_INVALID_COMMAND);
+				
+			case SORT :
+				return sort();
 	
 			default :
 				throw new Error(MESSAGE_INVALID_COMMAND);
@@ -132,6 +137,8 @@ public class TextBuddy {
 			return COMMAND_TYPE.CLEAR;
 		} else if (userInput.equalsIgnoreCase("exit")) {
 			return COMMAND_TYPE.EXIT;
+		} else if (userInput.equalsIgnoreCase("sort")) {
+			return COMMAND_TYPE.SORT;
 		} else {
 			return COMMAND_TYPE.INVALID;
 		}
@@ -184,6 +191,16 @@ public class TextBuddy {
 		}
 		return false;
 	}
+	
+	public static String sort() {
+		Collections.sort(textFile);
+		return String.format(MESSAGE_FILE_SORTED, fileName);
+	}
+	
+	public static String isSorted() {
+		return textFile.toString();
+	}
+
 	
 	/**
 	 * This operation saves the file. If file already exists, it will be overwritten. 
