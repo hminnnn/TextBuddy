@@ -79,21 +79,24 @@ public class TextBuddy {
 	
 			case CLEAR :
 				return clear();
-	
+
 			case DISPLAY :			
 				return display();
-	
+
 			case EXIT :
 				sc.close();
 				System.exit(0);
 				break;
-	
+
 			case INVALID :
 				return String.format(MESSAGE_INVALID_COMMAND);
-				
+
 			case SORT :
 				return sort();
-	
+
+			case SEARCH :
+				return search();
+
 			default :
 				throw new Error(MESSAGE_INVALID_COMMAND);
 		}
@@ -139,6 +142,8 @@ public class TextBuddy {
 			return COMMAND_TYPE.EXIT;
 		} else if (userInput.equalsIgnoreCase("sort")) {
 			return COMMAND_TYPE.SORT;
+		} else if (userInput.equalsIgnoreCase("search")) {
+			return COMMAND_TYPE.SEARCH;
 		} else {
 			return COMMAND_TYPE.INVALID;
 		}
@@ -201,6 +206,9 @@ public class TextBuddy {
 		return textFile.toString();
 	}
 
+	public static String search() {
+
+	}
 	
 	/**
 	 * This operation saves the file. If file already exists, it will be overwritten. 

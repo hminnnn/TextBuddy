@@ -33,6 +33,18 @@ public class TextBuddyTest {
 		assertEquals("[bbb, sss, zzz]", TextBuddy.isSorted());
 		
 	}
+	
+	@Test
+	public void testSearch() {
+		
+		TextBuddy.executeCommand("add hello there");
+		TextBuddy.executeCommand("add huimin is here!");
+		TextBuddy.executeCommand("add abcdefg");
+		TextBuddy.executeCommand("add qwerty");
+		assertEquals("[huimin is here!]", TextBuddy.search());
+		
+		
+	}
 
 }
 
