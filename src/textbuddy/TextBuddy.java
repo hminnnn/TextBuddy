@@ -19,6 +19,7 @@ public class TextBuddy {
 	private static String restOfText;
 	private static String fileName;
 	private static Scanner sc = new Scanner(System.in);
+	private static ArrayList<String> searchedText = new ArrayList<String>();
 	
 	private static final String MESSAGE_INVALID_COMMAND = "Invalid command";
 	private static final String MESSAGE_NO_FILE_NAME = "File name not specified.";
@@ -207,12 +208,12 @@ public class TextBuddy {
 	}
 
 	public static String search() {
-		boolean isPresent = false;
-
+		
 		if (textFile.isEmpty()) {
 			return String.format(MESSAGE_FILE_EMPTY_DISPLAY, fileName);
 		} else {
-			System.out.println(restOfText + " is present in the lines:");
+			boolean isPresent = false;
+
 			String[] checkWords = restOfText.split(" ");
 			String[] word;
 			for (int i = 0; i < textFile.size(); i++) {
@@ -221,18 +222,27 @@ public class TextBuddy {
 					for (int k = 0; k < word.length; k++ ) {
 						if (word[k].equalsIgnoreCase(checkWords[j])) {
 							isPresent = true;
+							break;
 						} else {
 							isPresent = false;
 						}
 					}
-					if (isPresent) {
-						System.out.println(i+". " + textFile.get(i));
-					}
 				}
+					if (isPresent) {
+						//searched();
+						int num = i+1;
+						System.out.println(num +". " + textFile.get(i));
+						searchedText.add(textFile.get(i));
+					}
+				
 			}
 		}
-		return "---";
-
+		return restOfText + " is present in the lines above:" ;
+	}
+	
+	public static String searched() {
+		System.out.println(searchedText);
+		return searchedText.toString();
 	}
 
 
