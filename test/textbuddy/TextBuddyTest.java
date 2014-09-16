@@ -47,6 +47,9 @@ public class TextBuddyTest {
 		// Delete valid 
 		assertEquals("deleted from test.txt \"apples\"", tb.executeCommand("delete 2"));
 		
+		// Delete nothing
+		assertEquals("Invalid command", tb.executeCommand("delete"));
+		
 	}
 	
 	// Sort. Input not sorted
