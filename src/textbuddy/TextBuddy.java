@@ -174,6 +174,10 @@ public class TextBuddy {
 	}
 
 	public String delete() {
+		if (restOfText.isEmpty()) {
+			 return MESSAGE_INVALID_COMMAND;
+		}
+		
 		int indexToDelete = Integer.parseInt(restOfText.substring(0));
 		
 		// Integer to delete is invalid
