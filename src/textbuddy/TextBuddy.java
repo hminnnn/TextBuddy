@@ -15,11 +15,11 @@ import java.util.Scanner;
  */
 public class TextBuddy {
 	
-	private static ArrayList<String> textFile = new ArrayList<String>();
-	private static String restOfText;
-	private static String fileName;
+	private ArrayList<String> textFile = new ArrayList<String>();
+	private String restOfText;
+	private String fileName;
 	private static Scanner sc = new Scanner(System.in);
-	private static ArrayList<String> searchedText = new ArrayList<String>();
+	private ArrayList<String> searchedText = new ArrayList<String>();
 	
 	private static final String MESSAGE_INVALID_COMMAND = "Invalid command";
 	private static final String MESSAGE_NO_FILE_NAME = "File name not specified.";
@@ -29,44 +29,48 @@ public class TextBuddy {
 	private static final String MESSAGE_FILE_EMPTY_DISPLAY = "%1$s is empty";
 	private static final String MESSAGE_FILE_SORTED = "%1$s is sorted";
 	
+	public TextBuddy(String[] Args) {
+		fileName = Args[0];
+	}
+	
 	enum COMMAND_TYPE {
 		ADD, DELETE, CLEAR, DISPLAY, EXIT, INVALID, SORT, SEARCH
 	};
 	
 	public static void main(String[] arg) {
 		String userInput;
-		fileName = arg[0];
-		checkFileValid();
-		welcomeMsg();
+		TextBuddy tb = new TextBuddy(arg);
+		tb.checkFileValid();
+		tb.welcomeMsg();
 		String toDisplay;
 		
 		while (true) {
 			System.out.print("command: ");
 			userInput = sc.nextLine();
-			toDisplay = executeCommand(userInput);
+			toDisplay = tb.executeCommand(userInput);
 			System.out.println(toDisplay);
 			System.out.println(" ");
-			saveFile();
+			tb.saveFile();
 		}
 	}
 
 	/**
 	 * This operation checks if the file name is valid.  
 	 */
-	public static void checkFileValid() {
+	public void checkFileValid() {
 		if (fileName.isEmpty()) {
 			System.out.println(String.format(MESSAGE_NO_FILE_NAME));
 		}
 	}
 	
-	public static void welcomeMsg() {
+	public void welcomeMsg() {
 		System.out.println(String.format(WELCOME_MESSAGE, fileName));
 	}
 	
 	/**
 	 * This operation determines which of the supported command types the user wants to perform
 	 */
-	public static String executeCommand(String userInput) {
+	public String executeCommand(String userInput) {
 		
 		String userCommand = splitText(userInput);
 		COMMAND_TYPE commandType = determineCommandType(userCommand);
@@ -111,7 +115,7 @@ public class TextBuddy {
 	 * @param userInput
 	 * @return userCommand = the first word.
 	 */
-	public static String splitText(String userInput) {
+	public String splitText(String userInput) {
 		String[] textArr = userInput.split(" ", 2);
 		if (textArr.length > 1 ) {
 			restOfText = textArr[1];
@@ -125,7 +129,7 @@ public class TextBuddy {
 	 * This operation determines which of the supported command types the user wants to perform
 	 * @param userInput is the first word of the user command
 	 */
-	public static COMMAND_TYPE determineCommandType(String userInput) {
+	public COMMAND_TYPE determineCommandType(String userInput) {
 	
 		if (userInput == null) {
 			throw new Error(MESSAGE_INVALID_COMMAND);
@@ -150,7 +154,7 @@ public class TextBuddy {
 		}
 	}
 	
-	public static String display() {
+	public String display() {
 		if (!textFile.isEmpty()) {
 			int size = 1;
 			for (int i = 0; i < textFile.size()-1; i++) {
@@ -164,12 +168,12 @@ public class TextBuddy {
 		}
 	}
 
-	public static String clear() {
+	public String clear() {
 		textFile.clear();
 		return String.format(MESSAGE_FILE_CLEARED, fileName);
 	}
 
-	public static String delete() {
+	public String delete() {
 		int indexToDelete = Integer.parseInt(restOfText.substring(0));
 		
 		// Integer to delete is invalid
@@ -182,7 +186,7 @@ public class TextBuddy {
 		}
 	}
 
-	public static String add() {
+	public String add() {
 		if (restOfText.isEmpty()) {
 			return String.format(MESSAGE_INVALID_COMMAND);
 		}
@@ -191,24 +195,25 @@ public class TextBuddy {
 		return String.format(MESSAGE_FILE_ADDED, fileName, restOfText);
 	}
 	
-	public static boolean isAdded(String text) {
+	public boolean isAdded(String text) {
 		if (textFile.get(textFile.size()-1).equals(text)) {
 			return true;
 		}
 		return false;
 	}
 	
-	public static String sort() {
+	public String sort() {
 		Collections.sort(textFile);
+		isSorted();
 		return String.format(MESSAGE_FILE_SORTED, fileName);
 	}
 	
-	public static String isSorted() {
-		return textFile.toString();
+	public ArrayList<String> isSorted() {
+		return textFile;
 	}
 
-	public static String search() {
-		searchedText = new ArrayList<String>();
+	public String search() {
+		searchedText.clear();
 		if (textFile.isEmpty()) {
 			return String.format(MESSAGE_FILE_EMPTY_DISPLAY, fileName);
 		} else {
@@ -237,19 +242,20 @@ public class TextBuddy {
 				
 			}
 		}
+	
 		return restOfText + " is present in the lines above:" ;
 	}
 	
-	public static ArrayList<String> searched() {
+	public ArrayList<String> searched() {
 		return searchedText;
+		
 	}
-
 
 
 	/**
 	 * This operation saves the file. If file already exists, it will be overwritten. 
 	 */
-	public static void saveFile() {
+	public void saveFile() {
 		try {
 			BufferedWriter fileWrite = new BufferedWriter(new FileWriter(fileName));
 			Iterator<String> textFileItr = textFile.iterator();
