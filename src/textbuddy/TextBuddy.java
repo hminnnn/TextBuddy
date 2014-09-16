@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 /**
- * Assumptions: commands are correctly entered.
+ * TextBuddy CE2
  * @author huimin
  *
  */
@@ -199,6 +199,11 @@ public class TextBuddy {
 		return String.format(MESSAGE_FILE_ADDED, fileName, restOfText);
 	}
 	
+	/**
+	 * This operation is for TextBuddyTest to test if the text is added.
+	 * @param text
+	 * @return boolean
+	 */
 	public boolean isAdded(String text) {
 		if (textFile.get(textFile.size()-1).equals(text)) {
 			return true;
@@ -212,6 +217,10 @@ public class TextBuddy {
 		return String.format(MESSAGE_FILE_SORTED, fileName);
 	}
 	
+	/**
+	 * This operation is for TextBuddyTest to test if the textFile arraylist is sorted.
+	 * @return
+	 */
 	public ArrayList<String> isSorted() {
 		return textFile;
 	}
@@ -237,24 +246,25 @@ public class TextBuddy {
 						}
 					}
 				}
-					if (isPresent) {
-						searched();
-						int num = i+1;
-						System.out.println(num +". " + textFile.get(i));
-						searchedText.add(textFile.get(i));
-					}
-				
+				if (isPresent) {
+					searched();
+					int num = i+1;
+					System.out.println(num +". " + textFile.get(i));
+					searchedText.add(textFile.get(i));
+				}
 			}
 		}
-	
 		return restOfText + " is present in the lines above:" ;
 	}
 	
+	/**
+	 * This operation is for TextBuddyTest to test if the word has been searched.
+	 * @return
+	 */
 	public ArrayList<String> searched() {
 		return searchedText;
 		
 	}
-
 
 	/**
 	 * This operation saves the file. If file already exists, it will be overwritten. 

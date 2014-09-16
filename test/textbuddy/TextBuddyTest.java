@@ -52,7 +52,20 @@ public class TextBuddyTest {
 		
 	}
 	
-	// Sort. Input not sorted
+	@Test 
+	public void testClear() {
+		
+		String[] arg = {"test.txt"};
+		TextBuddy tb = new TextBuddy(arg);
+		tb.executeCommand("add 123");
+		tb.executeCommand("add apples");
+		tb.executeCommand("add cats");
+		tb.executeCommand("delete 10");
+		assertEquals("all content deleted from test.txt", tb.executeCommand("clear"));
+		
+	}
+	
+	// Sort1. Input not sorted
 	@Test 
 	public void testIsSorted1() {
 		
@@ -68,7 +81,7 @@ public class TextBuddyTest {
 		
 	}
 	
-	// Sort. Input sorted
+	// Sort2. Input sorted
 	@Test 
 	public void testIsSorted2() {
 		
@@ -160,7 +173,3 @@ public class TextBuddyTest {
 		}
 	}
 }
-	
-
-
-
